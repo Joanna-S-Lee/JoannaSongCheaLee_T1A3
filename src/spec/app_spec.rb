@@ -18,7 +18,24 @@ RSpec.describe App do
 		end
 
 		it 'should ask user for input' do
-			
+			expected_output = "Enter name and medication details\n"
+			expect{ app.display_add_user_profile }.to output(expected_output).to_stdout
+		end
+	
+	let(:input) { StringIO.new('test user profile')}
+		it 'should be able to receive user_profile details from terminal' do
+			$stdin = input
+			expect(app.user_profile_add).to eq('test user profile')	
+		end
+	end
+
+	context 'displaying user profiles' do
+		before(:each) do
+			app.user_profiles = [{user_profile: 'test user profile', medication_taken: false}]
+		end
+
+		it 'should display all user profiles' do
+			expected_output = "User Profile \n1. test user profile [ ]"	
 		end
 	end
 end
