@@ -15,4 +15,11 @@ class App
     def user_profile_add
         gets.strip        
     end
+
+    def display_user_profiles
+        puts "User Profile:"
+        @user_profiles.each_with_index do |user_profile,index|
+            puts "#{index +1}. #{user_profile[:user_profile]} [ ]"
+        end
+    end
 end
