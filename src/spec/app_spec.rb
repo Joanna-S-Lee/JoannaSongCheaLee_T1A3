@@ -42,7 +42,27 @@ RSpec.describe App do
 		it 'should display medication that has been taken with a X' do
 			app.user_profiles << { user_profile: 'test user profile 2', medication_taken: true }
 			expected_output = "User Profile:\n1. test user profile [ ]\n2. test user profile 2 [X]\n"
-			expect{ app.display_tasks }.to output(expected_output).to_stdout	
+			expect{ app.display_user_profiles }.to output(expected_output).to_stdout	
+		end
+
+		it 'should display medication that has not been taken with a space' do
+			app.user_profiles << { user_profile: 'test user profile 2', medication_taken: false }
+			expected_output = "User Profile:\n1. test user profile [ ]\n2. test user profile 2 [ ]\n"
+			expect{ app.display_user_profiles }.to output(expected_output).to_stdout	
+		end
+	end
+
+	context 'edit user profile' do
+		before(:each) do
+			app.user_profiles = [{user_profile: 'test user profile', medication_taken: false}]
+		end
+
+		describe '#select_user_profile' do
+			let(:input) { StringIO.new('1')}
+			it 'should return the index of task selected' do
+				$stdin = input
+				expect(app.select_user_profile).to eq(0)
+			end
 		end
 	end
 end

@@ -19,7 +19,7 @@ class App
     def display_user_profiles
         puts "User Profile:"
         @user_profiles.each_with_index do |user_profile,index|
-            puts "#{index +1}. #{user_profile[:user_profile]} [ ]"
+            puts "#{index +1}. #{user_profile[:user_profile]} [#{user_profile[:medication_taken] ? 'X' : ' '}]"
         end
     end
 end
