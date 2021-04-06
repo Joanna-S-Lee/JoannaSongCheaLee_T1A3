@@ -22,4 +22,17 @@ class App
             puts "#{index +1}. #{user_profile[:user_profile]} [#{user_profile[:medication_taken] ? 'X' : ' '}]"
         end
     end
+
+    def display_select_user_profile
+        puts 'Please enter the user profile number:'
+        
+    end
+
+    def select_user_profile
+        gets.to_i - 1
+    end
+
+    def display_new_user_profile
+        puts 'Please enter new medication details'       
+    end
 end

@@ -57,9 +57,24 @@ RSpec.describe App do
 			app.user_profiles = [{user_profile: 'test user profile', medication_taken: false}]
 		end
 
+		it 'should display to the user to enter a user profile number' do
+			expected_output = "Please enter the user profile number:\n"
+			expect{ app.display_select_user_profile }.to output(expected_output).to_stdout
+		end
+
+		it 'should ask user for the new medication details' do
+			expected_output = "Please enter new medication details\n"
+			expect{ app.display_new_user_profile }.to output{expected_output}.to_stdout
+		end
+
+		it 'should change a user profile depending on the index' do
+			app.change_user_profile('edited test user profile',0)
+			expect(app.user_profiles[0][:user_profile])to eq 'edited test user profile'
+		end
+
 		describe '#select_user_profile' do
-			let(:input) { StringIO.new('1')}
-			it 'should return the index of task selected' do
+			let(:input) { StringIO.new('1') }
+			it 'should return the index of user profile selected' do
 				$stdin = input
 				expect(app.select_user_profile).to eq(0)
 			end
