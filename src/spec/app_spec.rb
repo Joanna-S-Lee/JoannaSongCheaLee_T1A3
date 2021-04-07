@@ -11,6 +11,7 @@ RSpec.describe App do
 	it 'should have an empty list of user profiles' do
 		expect(app.user_profiles).to eq []
 	end
+	
 	context 'adding a user_profile' do
 		it 'should be able to add a user profile' do
 			app.add_user_profile('Create a user profile')
@@ -70,6 +71,12 @@ RSpec.describe App do
 		it 'should change a user profile depending on the index' do
 			app.change_user_profile('edited test user profile', 0)
 			expect(app.user_profiles[0][:user_profile]).to eq 'edited test user profile'
+		end
+
+		it 'should change a user profile if the index is 1' do
+			app.user_profiles << {user_profile: 'This is the user profile at index 1', medication_taken: false}
+			app.change_user_profile('This is the new user profile at index 1', 1)
+			expect(app.user_profiles[1][:user_profile]).to eq 'This is the new user profile at index 1'
 		end
 
 		describe '#select_user_profile' do
