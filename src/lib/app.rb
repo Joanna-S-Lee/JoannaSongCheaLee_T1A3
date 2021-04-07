@@ -35,4 +35,10 @@ class App
     def display_new_user_profile
         puts 'Please enter new medication details'       
     end
+
+    def change_user_profile(edited_user_profile, index)
+        @user_profiles[index][:user_profile] = edited_user_profile
+        
+        
+    end
 end

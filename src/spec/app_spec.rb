@@ -68,8 +68,8 @@ RSpec.describe App do
 		end
 
 		it 'should change a user profile depending on the index' do
-			app.change_user_profile('edited test user profile',0)
-			expect(app.user_profiles[0][:user_profile])to eq 'edited test user profile'
+			app.change_user_profile('edited test user profile', 0)
+			expect(app.user_profiles[0][:user_profile]).to eq 'edited test user profile'
 		end
 
 		describe '#select_user_profile' do
