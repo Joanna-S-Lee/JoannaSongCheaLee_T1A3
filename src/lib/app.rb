@@ -7,8 +7,11 @@ class App
     def run
       loop do
       display_welcome
+      puts '-' * 25
       display_user_profiles
+      puts '-' * 25
       display_menu
+      puts '-' * 25
       process_menu(menu_input)    
       end          
     end
@@ -16,16 +19,12 @@ class App
     def process_menu(menu_choice)
         case menu_choice
         when 1
-            display_new_user_profile
+            display_add_user_profile
             add_user_profile(user_profile_add)
         when 2
-            display_select_user_profile
-            index = select_user_profile
-            display_new_user_profile
-            change_user_profile(user_profile_add,index)
-
+            edit_user_profile 
         when 3
-
+            delete_user_profile_action
         when 4
 
         when 5
@@ -33,6 +32,29 @@ class App
         end
     end
 
+    def edit_user_profile
+        index = select_user_profile_action
+        display_new_user_profile
+        change_user_profile(user_profile_add,index)    
+    end
+
+    def delete_user_profile_action
+        index = select_user_profile_action
+        delete_user_profile(index)        
+    end
+
+    def select_user_profile_action
+        display_select_user_profile
+        index = select_user_profile
+        raise StandardError if index >= @user_profiles.length || index < 0
+        index
+        rescue
+            puts "User Profile Not Found :("
+            retry        
+    end
+
+ 
+    
     def display_menu
         puts 'Menu'
         puts '1. Add User Profile'
@@ -86,7 +108,7 @@ class App
     end
 
     def display_new_user_profile
-        puts 'Please enter new medication details'       
+        puts 'Please enter new name and/or medication details'       
     end
 
     def display_select_user_profile
