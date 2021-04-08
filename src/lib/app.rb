@@ -12,10 +12,22 @@ class App
         @user_profiles[index][:user_profile] = edited_user_profile
     end
 
+    def delete_user_profile(index)
+        @user_profiles.delete_at(index)        
+    end
+
+    def toggle_medication_taken(index)
+        @user_profiles[index][:medication_taken] = !@user_profiles[index][:medication_taken]        
+    end
+
     def display_add_user_profile
         puts 'Enter name and medication details'        
     end
 
+    def user_profile_add
+        gets.strip        
+    end
+    
     def display_user_profiles
         puts "User Profile:"
         @user_profiles.each_with_index do |user_profile,index|
@@ -36,8 +48,6 @@ class App
         gets.to_i - 1
     end
 
-    def user_profile_add
-        gets.strip        
-    end
+
 
 end

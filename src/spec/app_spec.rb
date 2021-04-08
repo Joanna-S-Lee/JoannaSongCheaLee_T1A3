@@ -59,6 +59,21 @@ RSpec.describe App do
 		end
 	end
 
+	describe '#toggle_medication_taken' do
+		it 'should toggle a false user profile to true' do
+		  app.user_profiles << { user_profile: 'toggle user profile', medication_taken: false }
+		  app.toggle_medication_taken(0)
+		  expect(app.user_profiles[0][:medication_taken]).to be true
+		end
+	
+		it 'should toggle a true user_profile to false' do
+		  app.user_profiles << { user_profile: 'toggle user profile', medication_taken: true }
+		  app.toggle_medication_taken(0)
+		  expect(app.user_profiles[0][:medication_taken]).to be false
+		end
+	  end
+	
+
 	describe 'display methods' do
 		context '#display_add_user_profile' do
 			it 'should ask user for input' do
