@@ -4,6 +4,56 @@ class App
         @user_profiles = []        
     end
     
+    def run
+      loop do
+      display_welcome
+      display_user_profiles
+      display_menu
+      process_menu(menu_input)    
+      end          
+    end
+
+    def process_menu(menu_choice)
+        case menu_choice
+        when 1
+            display_new_user_profile
+            add_user_profile(user_profile_add)
+        when 2
+            display_select_user_profile
+            index = select_user_profile
+            display_new_user_profile
+            change_user_profile(user_profile_add,index)
+
+        when 3
+
+        when 4
+
+        when 5
+
+        end
+    end
+
+    def display_menu
+        puts 'Menu'
+        puts '1. Add User Profile'
+        puts '2. Edit User Profile'
+        puts '3. Delete User Profile'
+        puts '4. Check off Medication'
+        puts '5. Exit'       
+    end
+
+    def display_welcome
+        puts 'WELCOME TO PILL TRACKER'
+    end
+
+    def menu_input
+        gets.to_i
+    end
+
+
+
+
+
     def add_user_profile(user_profile_input)
         @user_profiles << { user_profile: user_profile_input, medication_taken: false }
     end
@@ -27,9 +77,9 @@ class App
     def user_profile_add
         gets.strip        
     end
-    
+
     def display_user_profiles
-        puts "User Profile:"
+        puts "User Profiles:"
         @user_profiles.each_with_index do |user_profile,index|
             puts "#{index +1}. #{user_profile[:user_profile]} [#{user_profile[:medication_taken] ? 'X' : ' '}]"
         end
