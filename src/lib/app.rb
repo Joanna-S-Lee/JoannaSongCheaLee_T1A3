@@ -1,7 +1,11 @@
+require 'json'
+
 class App
     attr_accessor :user_profiles
+
     def initialize
-        @user_profiles = []        
+        @user_profiles = []
+        # load_data('./data/medicine.json')        
     end
     
     def run
@@ -45,9 +49,14 @@ class App
 
     def toggle_medication_taken_action
         index = select_user_profile_action
-        toggle_medication_taken(index)
-        
+        toggle_medication_taken(index)      
     end
+
+    # def load_data(file_path)
+    #     data =File.read(file_path)
+    #     json_data = JSON.parse(data)
+    #     @user_profile = json_data
+    # end
 
     def select_user_profile_action
         display_select_user_profile
