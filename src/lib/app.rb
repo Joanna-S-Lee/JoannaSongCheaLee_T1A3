@@ -26,9 +26,9 @@ class App
         when 3
             delete_user_profile_action
         when 4
-
+            toggle_medication_taken_action
         when 5
-
+            exit
         end
     end
 
@@ -41,6 +41,12 @@ class App
     def delete_user_profile_action
         index = select_user_profile_action
         delete_user_profile(index)        
+    end
+
+    def toggle_medication_taken_action
+        index = select_user_profile_action
+        toggle_medication_taken(index)
+        
     end
 
     def select_user_profile_action
