@@ -5,11 +5,12 @@ class App
 
     def initialize
         @user_profiles = []
-        # load_data('./data/medicine.json')        
+        load_data('./data/medicine.json')      
     end
     
     def run
       loop do
+      system 'clear'
       display_welcome
       puts '-' * 25
       display_user_profiles
@@ -32,6 +33,7 @@ class App
         when 4
             toggle_medication_taken_action
         when 5
+            File.write('./data/medicine.json', @user_profiles.to_json)
             exit
         end
     end
@@ -52,11 +54,16 @@ class App
         toggle_medication_taken(index)      
     end
 
-    # def load_data(file_path)
-    #     data =File.read(file_path)
-    #     json_data = JSON.parse(data)
-    #     @user_profile = json_data
-    # end
+    def load_data(file_path)
+        json_data = JSON.parse(File.read(file_path))
+        @user_profiles = json_data.map do |user_profile|
+            user_profile.transform_keys(&:to_sym)
+        end
+    rescue Errno::ENOENT
+        File.open(file_path, 'w+')
+        File.write(file_path, [])
+        retry           
+    end
 
     def select_user_profile_action
         display_select_user_profile
