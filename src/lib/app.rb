@@ -1,10 +1,12 @@
 require 'json'
+require 'tty-prompt'
 
 class App
     attr_accessor :user_profiles
 
     def initialize
         @user_profiles = []
+        @prompt = TTY::Prompt.new 
         load_data('./data/medicine.json')      
     end
     
@@ -15,9 +17,17 @@ class App
       puts '-' * 25
       display_user_profiles
       puts '-' * 25
-      display_menu
-      puts '-' * 25
-      process_menu(menu_input)    
+    #   display_menu
+      
+      input = @prompt.select("Menu:") do |menu|
+        menu.choice "Add User Profile", 1
+        menu.choice "Check Off Medication", 2
+        menu.choice "Edit User Profile", 3
+        menu.choice "Delete User Profile", 4
+        menu.choice "Exit", 5
+        end
+        puts '-' * 25
+        process_menu(input)    
       end          
     end
 
@@ -27,11 +37,11 @@ class App
             display_add_user_profile
             add_user_profile(user_profile_add)
         when 2
-            edit_user_profile 
+            toggle_medication_taken_action            
         when 3
-            delete_user_profile_action
+            edit_user_profile            
         when 4
-            toggle_medication_taken_action
+            delete_user_profile_action            
         when 5
             File.write('./data/medicine.json', @user_profiles.to_json)
             exit
