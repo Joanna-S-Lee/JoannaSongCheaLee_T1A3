@@ -1,19 +1,21 @@
 require 'json'
 require 'tty-prompt'
+require 'artii'
 
 class App
     attr_accessor :user_profiles
 
-    def initialize
-        @user_profiles = []
-        @prompt = TTY::Prompt.new 
-        load_data('./data/medicine.json')      
+    def initialize(file_path)
+        @prompt = TTY::Prompt.new
+        @file_path = file_path 
+        load_data(file_path)      
     end
     
     def run
       loop do
       system 'clear'
-      display_welcome
+      a = Artii::Base.new 
+      puts a.asciify('PILL TRACKER')
       puts '-' * 25
       display_user_profiles
       puts '-' * 25
@@ -43,7 +45,7 @@ class App
         when 4
             delete_user_profile_action            
         when 5
-            File.write('./data/medicine.json', @user_profiles.to_json)
+            File.write(@file_path, @user_profiles.to_json)
             exit
         end
     end
