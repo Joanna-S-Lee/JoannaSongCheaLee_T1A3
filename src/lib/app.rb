@@ -33,6 +33,33 @@ class App
       end          
     end
 
+    def run_with_argv
+        first, *other = ARGV
+        ARGV.clear
+        case first
+        when 'list'
+          display_user_profiles
+        when 'add'
+          add_user_profile(other.join(' '))
+          puts "#{other.join(' ')} has been added"
+        when 'complete', 'c'
+          index = other[0].to_i - 1 
+          toggle_complete(index)
+          puts "#{@user_profiles[index][:user_profile]} has been switched"
+        when 'edit', 'e'
+          index, *new_user_profile = other
+          change_user_profile(new_user_profile.join(' '), index.to_i - 1)
+          puts 'Changed User Profile'
+        when 'delete', 'd'
+          index = other[0].to_i - 1
+          puts "#{@user_profiles[index][:user_profile]} has been deleted"
+          delete_user_profile(index)
+        else
+          puts 'INVALID COMMAND LINE ARGUMENT'
+        end
+        File.write(@file_path, @user_profiles.to_json)
+      end
+
     def process_menu(menu_choice)
         case menu_choice
         when 1
@@ -87,16 +114,6 @@ class App
             retry        
     end
 
- 
-    
-    def display_menu
-        puts 'Menu'
-        puts '1. Add User Profile'
-        puts '2. Edit User Profile'
-        puts '3. Delete User Profile'
-        puts '4. Check off Medication'
-        puts '5. Exit'       
-    end
 
     def display_welcome
         puts 'WELCOME TO PILL TRACKER'
